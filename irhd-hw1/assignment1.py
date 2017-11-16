@@ -18,13 +18,10 @@ def angle(v1, v2):
     """
     calculate angel between v1 and v2
     """
-    def dotproduct(v1, v2):
-        return sum((a*b) for a, b in zip(v1, v2))
-
     def length(v):
-        return math.sqrt(dotproduct(v, v))
+        return math.sqrt(np.dot(v, v))
     
-    return math.acos(dotproduct(v1, v2) / (length(v1) * length(v2)))
+    return math.acos(np.dot(v1, v2) / (length(v1) * length(v2)))
 
 def min_angle(array, idx):
     """
@@ -50,8 +47,8 @@ min_angles_means = []
 # number of samples
 n_sample = 100
 # the max number of dimensions
-dim = 100
-
+dim = 1000
+# start time
 st = time.time()
 for i in range(dim-1):
     # sample 100 vectors from dimension 1 to 1000
@@ -60,10 +57,12 @@ for i in range(dim-1):
     min_mean = min_angles_mean(X)
     # build a 1-D array with i-th number min_angles_mean for i-th dimension
     min_angles_means.append(min_mean)
+# end time
 et = time.time()
 print('the time cost is:', et-st)
 # y is a idx for plot
 y = range(len(min_angles_means))
 # plot
 plt.plot(y, min_angles_means)
+plt.savefig('myfig')
 plt.show()
